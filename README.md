@@ -1,3 +1,19 @@
+Para Usar en windows
+Windows BAT file
+
+python garminbackup.py --password %2 --backup-dir %3 -f fit -E %1
+
+Los parametros son estos :
+%1 Garmin connect usuario
+%2 Password Gamrin connect 
+%3 Directorio donde bajaran los FIT y los JSON 
+********* Ejemplo *******************
+ Garmin connect usuario = PEDRO
+Password Gamrin connect = 1234
+Directorio donde bajaran los FIT y los JSON : C:\FITFILES\
+python garminbackup.py --password 1234 --backup-dir C:\FITFILES\ -f fit -E PEDRO
+
+
 Garmin Connect activity backup tool
 ===================================
 ``garminbackup.py`` is a program that downloads activities for a

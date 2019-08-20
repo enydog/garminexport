@@ -2,7 +2,7 @@
 """A module for authenticating against and communicating with selected
 parts of the Garmin Connect REST API.
 """
-
+import time
 import json
 import logging
 import os
@@ -115,13 +115,15 @@ class GarminClient(object):
             SSO_LOGIN_URL, headers=headers, params=request_params, data=form_data)
         log.debug("got auth response: %s", auth_response.text)
         if auth_response.status_code != 200:
-            raise ValueError(
-                "authentication failure: did you enter valid credentials?")
+             file = open("LOGIN.txt", "w")
+             file. write("FALSE" + os. linesep)
+             file. close()
+             time.sleep(10)
         auth_ticket_url = self._extract_auth_ticket_url(
             auth_response.text)
         log.debug("auth ticket url: '%s'", auth_ticket_url)
 
-        log.info("claiming auth ticket ...")
+        log.info("reclamando auth ticket ...")
         response = self.session.get(auth_ticket_url)
         if response.status_code != 200:
             raise RuntimeError(
@@ -163,6 +165,10 @@ class GarminClient(object):
         """
         ids = []
         batch_size = 100
+        file = open("LOGIN.txt", "w")
+        file. write("TRUE" + os. linesep)
+        file. close()
+        
         # fetch in batches since the API doesn't allow more than a certain
         # number of activities to be retrieved on every invocation
         for start_index in range(0, sys.maxsize, batch_size):
@@ -233,7 +239,8 @@ class GarminClient(object):
                 activity_id, response.status_code, response.text))
             raise Exception(u"failed to fetch json summary for activity {}: {}\n{}".format(
                 activity_id, response.status_code, response.text))
-        return json.loads(response.text)
+        #return json.loads(response.text)
+        return response.text
 
     @require_session
     def get_activity_details(self, activity_id):

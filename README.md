@@ -13,6 +13,18 @@ Password Gamrin connect = 1234
 Directorio donde bajaran los FIT y los JSON : C:\FITFILES\
 python garminbackup.py --password 1234 --backup-dir C:\FITFILES\ -f fit -E PEDRO
 
+Una vez que tengas todos los archivos bajados, podes usar el convertidor en JAVA
+
+CLS
+SET CLASSPATH=%1
+java -jar "C:\FITFILES\CSV\FITCSVTOOL.JAR" -b %2 "C:\FITFILES\CSV\sDATA.csv"
+java -jar "C:\FITFILES\CSV\FITCSVTOOL.JAR" -b %2 "C:\FITFILES\CSV\rDATA.csv" --data record
+java -jar "C:\FITFILES\CSV\FITCSVTOOL.JAR" -b %2 "C:\FITFILES\CSV\lDATA.csv" --data lap
+
+
+
+
+
 
 Garmin Connect activity backup tool
 ===================================

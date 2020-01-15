@@ -178,6 +178,7 @@ class GarminClient(object):
             ids.extend(next_batch)
         return ids
 
+
     @require_session
     def _fetch_activity_ids_and_ts(self, start_index, max_limit=100):
         """Return a sequence of activity ids (along with their starting

@@ -6,8 +6,7 @@ The backups are incremental, meaning that only activities that aren't already
 stored in the backup directory will be downloaded.
 """
 import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
+
 import json
 import argparse
 from datetime import timedelta,datetime
@@ -89,7 +88,7 @@ if __name__ == "__main__":
     if datetime.now().month < 10 :
      mes  = ", "+str(datetime.now().month)+","
     else:
-     mes  = ","+str(datetime.now().month)+","
+     mes  = ", "+str(datetime.now().month)+","
  
     print("****************************************************")
     print(anio+mes) 
@@ -132,20 +131,20 @@ if __name__ == "__main__":
 
             missing_activities = garminexport.backup.need_backup(activities, args.backup_dir, args.format)
             backed_up = activities - missing_activities            
-            log.info("%s contains %d backed up activities",args.backup_dir, len(backed_up))
-            log.info("activities that aren't backed up: %d",len(missing_activities))
+            log.info("%s CONTIENE %d BAJADAS",args.backup_dir, len(backed_up))
+            log.info("ACTIVIDADES QUE NO HAN SIDO BAJADAS: %d",len(missing_activities))
 
             for index, activity in enumerate(missing_activities):
                 id, start = activity
                 actividad =  str(activity)
                 if actividad.find(anio+mes)>0  :
-                 log.info("B A J A N D O =  %d from %s (%d out of %d) ..." % (id, start, index+1, len(missing_activities)))
+                 log.info("B A J A N D O =  %d DESDE %s (%d out of %d) ..." % (id, start, index+1, len(missing_activities)))
                  log.info(start)
                  log.info(activity)
                  #recJson(GarminClient.get_activity_summary(client,id), args.backup_dir +'/' + "%d.JSON" % (id))
                  recJson(GarminClient.get_activity_summary(client,id), args.backup_dir +'/' + garminexport.backup.export_filename(activity, 'json'))                 
-  
-                 print('VER AGOSTO 7 2019***************************************************************************************')
+ 
+                 print('VER AGOSTO 7 2019 TESTING**************************************************************************************')
                  try:
                    garminexport.backup.download(client, activity, retryer, args.backup_dir,args.format)
                  except Exception as e:
